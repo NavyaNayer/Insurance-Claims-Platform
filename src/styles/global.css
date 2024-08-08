@@ -1,0 +1,62 @@
+/* src/styles/global.css */
+:root {
+    --primary-color: #007bff; /* Primary blue color */
+    --secondary-color: #ffffff; /* White */
+    --text-color: #333; /* Dark text color for contrast */
+    --button-color: #007bff; /* Blue button color */
+    --button-hover-color: #0056b3; /* Darker blue for hover effect */
+    --background-color: #f8f9fa; /* Light background color */
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+  
+  header {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 10px;
+    text-align: center;
+  }
+  
+  nav a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    margin: 0 15px;
+  }
+  
+  nav a:hover {
+    text-decoration: underline;
+  }
+  
+  footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  main {
+    padding: 20px;
+  }
+  
+  button {
+    background-color: var(--button-color);
+    color: var(--secondary-color);
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: var(--button-hover-color);
+  }
+  
