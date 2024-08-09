@@ -3,7 +3,6 @@
   let password = '';
 
   function handleLogin() {
-    // Add login logic here
     console.log('Login', { email, password });
   }
 </script>
