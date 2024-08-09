@@ -26,7 +26,6 @@ body {
   background-color: var(--background-light);
 }
 
-/* Ensure header spans full width and is properly aligned */
 header {
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-blue));
   color: var(--header-text);
@@ -41,7 +40,6 @@ header {
   z-index: 1000;
 }
 
-/* Ensure footer spans full width and is properly aligned */
 footer {
   background-color: var(--footer-bg);
   color: var(--footer-text);
@@ -55,7 +53,6 @@ footer {
   left: 0;
 }
 
-/* Adjust main content area */
 main {
   padding: 80px 20px 60px;
   border-radius: 12px;
