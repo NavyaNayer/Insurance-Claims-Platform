@@ -1,62 +1,87 @@
-/* src/styles/global.css */
 :root {
-    --primary-color: #007bff; /* Primary blue color */
-    --secondary-color: #ffffff; /* White */
-    --text-color: #333; /* Dark text color for contrast */
-    --button-color: #007bff; /* Blue button color */
-    --button-hover-color: #0056b3; /* Darker blue for hover effect */
-    --background-color: #f8f9fa; /* Light background color */
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    color: var(--text-color);
-    background-color: var(--background-color);
-  }
-  
-  header {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 10px;
-    text-align: center;
-  }
-  
-  nav a {
-    color: var(--secondary-color);
-    text-decoration: none;
-    margin: 0 15px;
-  }
-  
-  nav a:hover {
-    text-decoration: underline;
-  }
-  
-  footer {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
-  
-  main {
-    padding: 20px;
-  }
-  
-  button {
-    background-color: var(--button-color);
-    color: var(--secondary-color);
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: var(--button-hover-color);
-  }
-  
+  --primary-color: #007bff; /* Bright Blue */
+  --secondary-blue: #003366; /* Dark Blue */
+  --white: #ffffff; /* White */
+  --highlight-color: #0056b3; /* Darker Blue */
+  --background-light: #f0f4f8; /* Light Grey Blue */
+  --footer-bg: #003366; /* Dark Blue */
+  --footer-hover-bg: #002244; /* Even Darker Blue */
+  --header-text: #ffffff; /* White */
+  --border-light: #e0e0e0; /* Light Grey */
+  --text-color: #333333; /* Dark Text Color for Contrast */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  background-color: var(--background-light);
+}
+
+/* Ensure header spans full width and is properly aligned */
+header {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-blue));
+  color: var(--header-text);
+  padding: 20px 30px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Ensure footer spans full width and is properly aligned */
+footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  text-align: center;
+  padding: 20px 30px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  left: 0;
+}
+
+/* Adjust main content area */
+main {
+  padding: 80px 20px 60px;
+  border-radius: 12px;
+}
+
+nav a {
+  color: var(--header-text);
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--highlight-color);
+  transform: translateY(-2px);
+}
