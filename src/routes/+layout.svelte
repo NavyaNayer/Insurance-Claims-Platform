@@ -49,7 +49,7 @@
 
   header:hover {
     background: linear-gradient(90deg, var(--secondary-blue), var(--primary-color));
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   }
 
   .logo-container {
@@ -72,7 +72,7 @@
     margin: 0;
     color: var(--header-text);
     letter-spacing: 1px;
-    font-weight: 600; /* Add font weight for emphasis */
+    font-weight: 600; 
   }
 
   header nav {
@@ -86,11 +86,11 @@
     font-weight: 500;
     transition: transform 0.3s ease;
     font-size: 1rem;
-    padding-bottom: 5px; /* Add padding for underline effect */
+    padding-bottom: 5px; 
   }
 
   header a:hover {
-    transform: scale(1.1); /* Increase size on hover */
+    transform: scale(1.1);
   }
 
   /* Footer styles */
@@ -113,7 +113,7 @@
 
   footer:hover {
     background-color: var(--footer-hover-bg);
-    box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.3); 
   }
 
   footer p {
