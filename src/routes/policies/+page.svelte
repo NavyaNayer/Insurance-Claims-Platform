@@ -1,9 +1,36 @@
-<script>
-  let policies = [
-    { policyNumber: '123456', provider: 'Provider A', coverageDetails: 'Coverage A' },
-    { policyNumber: '789012', provider: 'Provider B', coverageDetails: 'Coverage B' }
-  ];
+<script context="module">
+  // @ts-ignore
+  export async function load({ fetch }) {
+    const res = await fetch('/api/policies');
+    if (res.ok) {
+      const policies = await res.json();
+      if (policies.length === 0) {
+        // Add dummy data if no policies are returned
+        policies.push({
+          policy_number: '000000',
+          provider: 'Dummy Provider',
+          coverage_details: 'Dummy Coverage Details'
+        });
+      }
+      return { props: { policies } };
+    } else {
+      // Add dummy data in case of an error
+      const policies = [
+        {
+          policy_number: '000000',
+          provider: 'Dummy Provider',
+          coverage_details: 'Dummy Coverage Details'
+        }
+      ];
+      return { props: { policies } };
+    }
+  }
 </script>
+
+<script>
+  export let policies = [];
+</script>
+
 
 <h1>Your Policies</h1>
 

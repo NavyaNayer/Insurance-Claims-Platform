@@ -1,12 +1,27 @@
 <!-- src/routes/policies/add.svelte -->
 <script>
+  import { goto } from '$app/navigation';
+
   let policyNumber = '';
   let provider = '';
   let coverageDetails = '';
 
-  function handleAddPolicy() {
-      // Add policy logic here
-      console.log('Add Policy', { policyNumber, provider, coverageDetails });
+  async function handleAddPolicy() {
+    const res = await fetch('/api/policies', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        policyNumber,
+        provider,
+        coverageDetails
+      })
+    });
+
+    if (res.ok) {
+      goto('/policies');
+    }
   }
 </script>
 
