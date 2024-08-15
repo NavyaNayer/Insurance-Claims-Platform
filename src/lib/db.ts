@@ -1,8 +1,13 @@
 import { Pool } from 'pg';
-import { drizzle } from 'drizzle-orm';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.POSTGRES_URL,
+  ssl: {
+    rejectUnauthorized: false // This can be true for production; false for local development
+  }
 });
 
-export const db = drizzle(pool);
+export default pool;

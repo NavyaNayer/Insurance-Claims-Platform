@@ -1,26 +1,35 @@
-<script>
-  let claims = [
-    { claimId: '001', status: 'Pending', details: 'Claim details for 001' },
-    { claimId: '002', status: 'Approved', details: 'Claim details for 002' }
-  ];
+<script lang="ts">
+  interface Claim {
+    id: number;
+    claim_details: string;
+    digital_bill_url: string;
+    status: string;
+  }
+
+  export { load } from './+page';
+  export let data;
+
+  console.log('claims data:', data);
 </script>
 
 <h1>Your Claims</h1>
+<br>
+<center><a class="nav-link" href="/claims/submit">Submit a New Claim</a></center>
+<br>
 
 <div class="claims-container">
-  {#each claims as claim, i}
+  {#each data?.claims as claim, i}
     <div class="claim-card" style="animation-delay: {i * 0.2}s">
       <div class="claim-header">
-        <h2>Claim ID: {claim.claimId}</h2>
+        <h2>Claim ID: {claim.id}</h2>
         <span class="status {claim.status.toLowerCase()}">{claim.status}</span>
       </div>
-      <p>{claim.details}</p>
+      <p>{claim.claim_description}</p>
       <a class="view-details" href={`/claims/notupdated`}>View Details</a>
     </div>
   {/each}
 </div>
 
-<a class="submit-claim" href="/claims/submit">Submit a New Claim</a>
 
 <style>
   h1 {
@@ -122,6 +131,30 @@
   .submit-claim:hover {
     background-color: var(--button-hover-color);
   }
+
+  .nav-link {
+    padding: 15px 30px;
+    margin-top: 30px;
+    margin-bottom: 100px;
+    padding: 15px 30px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .nav-link:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
 
   @keyframes slideIn {
     from {

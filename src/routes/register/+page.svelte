@@ -1,34 +1,87 @@
-<script>
-  let email = '';
-  let password = '';
-  let confirmPassword = '';
+<script lang="ts">
+  import type { RegisterData } from './types'; // Adjust the import path according to your setup
+  import { goto } from '$app/navigation'; // If using SvelteKit
 
-  function handleRegister() {
-      console.log('Register', { email, password, confirmPassword });
-  }
+  let email: string = '';
+  let password: string = '';
+  let confirmPassword: string = '';
+  let errorMessage: string = '';
+  let successMessage: string = '';
+
+  const handleSubmit = async (event: Event) => {
+    event.preventDefault();
+    
+    // Clear messages
+    errorMessage = '';
+    successMessage = '';
+
+    // Validate inputs
+    if (password !== confirmPassword) {
+      errorMessage = 'Passwords do not match.';
+      return;
+    }
+
+    const data: RegisterData = { email, password, confirmPassword };
+
+    try {
+      const response = await fetch('/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        successMessage = 'Registration successful. You can now log in.';
+        // Redirect to login page
+        goto('/login'); // Use window.location.href if not using SvelteKit
+      } else {
+        // Handle specific error messages
+        if (result.error === 'User already exists') {
+          errorMessage = 'User already exists. <a href="/login" class="link">Log in here</a>';
+        } else {
+          errorMessage = result.error || 'Registration failed. Please try again.';
+        }
+      }
+    } catch (error) {
+      errorMessage = 'An unexpected error occurred. Please try again later.';
+    }
+  };
 </script>
+
 
 <h1>Create Your Account</h1>
 
-<form on:submit|preventDefault={handleRegister}>
+<form on:submit|preventDefault={handleSubmit}>
   <div class="input-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" bind:value={email} placeholder="Enter your email" required />
+    <label for="email">Email</label>
+    <input type="email" id="email" bind:value={email} placeholder="Enter your email" required />
   </div>
 
   <div class="input-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" bind:value={password} placeholder="Create a password" required />
+    <label for="password">Password</label>
+    <input type="password" id="password" bind:value={password} placeholder="Create a password" required />
   </div>
 
   <div class="input-group">
-      <label for="confirmPassword">Confirm Password</label>
-      <input type="password" id="confirmPassword" bind:value={confirmPassword} placeholder="Confirm your password" required />
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" id="confirmPassword" bind:value={confirmPassword} placeholder="Confirm your password" required />
   </div>
 
   <!-- Register Button -->
-  <button type="submit" class="cta-button">Register</button>
+  <center><button type="submit" class="nav-link">Register</button></center>
+
+  <!-- Display Messages -->
+  {#if errorMessage}
+    <p>{@html errorMessage}</p>
+  {/if}
+  {#if successMessage}
+    <p>{successMessage}</p>
+  {/if}
 </form>
+
+
 
 <p>Already have an account? <a href="/login" class="cta-link">Login here</a></p>
 
@@ -100,6 +153,30 @@
       background-color: var(--button-hover-color);
       transform: translateY(-3px);
   }
+
+
+  .nav-link {
+    padding: 15px 30px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .nav-link:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+
+
 
   p {
       text-align: center;

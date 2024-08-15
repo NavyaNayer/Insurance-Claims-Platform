@@ -1,53 +1,47 @@
-<script context="module">
-  // @ts-ignore
-  export async function load({ fetch }) {
-    const res = await fetch('/api/policies');
-    if (res.ok) {
-      const policies = await res.json();
-      if (policies.length === 0) {
-        // Add dummy data if no policies are returned
-        policies.push({
-          policy_number: '000000',
-          provider: 'Dummy Provider',
-          coverage_details: 'Dummy Coverage Details'
-        });
-      }
-      return { props: { policies } };
-    } else {
-      // Add dummy data in case of an error
-      const policies = [
-        {
-          policy_number: '000000',
-          provider: 'Dummy Provider',
-          coverage_details: 'Dummy Coverage Details'
-        }
-      ];
-      return { props: { policies } };
-    }
+<script lang="ts">
+  interface Policy {
+    policy_number: string;
+    provider: string;
+    coverage_details: string;
   }
-</script>
-
-<script>
-  export let policies = [];
+  export { load } from './+page';
+  export let data;
+  
+  console.log('policy1 in component:', data);
 </script>
 
 
 <h1>Your Policies</h1>
+<center><a class="nav-link" href="/policies/add">Add a New Policy</a></center>
+<br><br>
+<ul class="policy-list">
+  {#each  data?.policies as policy}
+    <li class="policy-card">
+      <div class="policy-info">
+        <p><strong>Policy Number:</strong> {policy.policy_number}</p>
+        <p><strong>Provider:</strong> {policy.provider}</p>
+        <p><strong>Coverage Details:</strong> {policy.coverage_details}</p>
+      </div>
+      <a class="details-link" href={`/policies/${policy.policy_number}`}>View Details</a>
+    </li>
+  {/each}
+</ul>
 
+<!--
 <ul class="policy-list">
   {#each policies as policy}
     <li class="policy-card">
       <div class="policy-info">
-        <p><strong>Policy Number:</strong> {policy.policyNumber}</p>
+        <p><strong>Policy Number:</strong> {policy.policy_number}</p>
         <p><strong>Provider:</strong> {policy.provider}</p>
-        <p><strong>Coverage:</strong> {policy.coverageDetails}</p>
+        <p><strong>Coverage:</strong> {policy.coverage_details}</p>
       </div>
       <a class="details-link" href={`/policies/notupdated`}>View Details</a>
     </li>
   {/each}
 </ul>
+-->
 
-<center><a class="add-policy-button" href="/policies/add">Add a New Policy</a></center>
 
 <style>
   h1 {
@@ -124,6 +118,31 @@
     transform: translateY(-3px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
+  
+  .nav-link {
+    padding: 15px 30px;
+    margin-top: 30px;
+    margin-bottom: 100px;
+    padding: 15px 30px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .nav-link:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }

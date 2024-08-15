@@ -1,28 +1,56 @@
 <script>
-  let claimDetails = '';
-  let digitalBills = null;
+  import { goto } from '$app/navigation'; // Import the goto function
 
-  function handleSubmitClaim() {
-    // Submit claim logic here
-    console.log('Submit Claim', { claimDetails, digitalBills });
+  let claimDetails = '';
+  let digitalBillUrl = '';
+
+  async function handleSubmitClaim() {
+    try {
+      const response = await fetch('/api/claims', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          claimDetails,
+          digitalBillUrl,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Reset form fields
+        claimDetails = '';
+        digitalBillUrl = '';
+        // Redirect to claims status page
+        goto('/claims');
+      } else {
+        alert(result.message || 'An error occurred');
+      }
+    } catch (error) {
+      console.error('Error submitting claim:', error);
+      alert('An error occurred');
+    }
   }
 </script>
 
 <h1>Submit a New Claim</h1>
 
 <form on:submit|preventDefault={handleSubmitClaim}>
-  <div class="form-group">
-    <label for="claimDetails">Claim Details</label>
-    <textarea id="claimDetails" bind:value={claimDetails} placeholder="Describe your claim in detail" required></textarea>
-  </div>
+  <label for="claimDetails">Claim Details</label>
+  <input type="text" id="claimDetails" bind:value={claimDetails} placeholder="Claim Details" required />
 
-  <div class="form-group">
-    <label for="digitalBills">Attach Digital Bills</label>
-    <input type="file" id="digitalBills" bind:this={digitalBills} />
-  </div>
+  <label for="digitalBillUrl">Attach Digital Bill (URL)</label>
+  <input type="url" id="digitalBillUrl" bind:value={digitalBillUrl} placeholder="Enter URL of the Digital Bill" required />
 
-  <button type="submit">Submit Claim</button>
+  <div class="button-container">
+    <button class="cta-button" type="submit">Submit Claim</button>
+  </div>
 </form>
+
+
+
 
 <style>
   h1 {

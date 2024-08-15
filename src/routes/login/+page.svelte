@@ -1,15 +1,46 @@
-<script>
-  let email = '';
-  let password = '';
+<script lang="ts">
+  let email: string = '';
+  let password: string = '';
+  let errorMessage: string = '';
+  let successMessage: string = '';
 
-  function handleLogin() {
-    console.log('Login', { email, password });
-  }
+  const handleSubmit = async (event: Event) => {
+    event.preventDefault();
+    
+    // Clear messages
+    errorMessage = '';
+    successMessage = '';
+
+    const data = { email, password };
+
+    try {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        successMessage = 'Login successful! Redirecting you to the dashboard...';
+        // Optionally redirect after a short delay
+        setTimeout(() => {
+          window.location.href = '/dashboard'; // Change this to the page you want to redirect to
+        }, 10); // Adjust the delay as needed
+      } else {
+        console.log("failed")
+        errorMessage = result.error || 'Login failed. Please check your credentials and try again.';
+      }
+    } catch (error) {
+      errorMessage = 'An unexpected error occurred.';
+    }
+  };
 </script>
 
 <h1>Welcome Back</h1>
 
-<form on:submit|preventDefault={handleLogin}>
+<form on:submit|preventDefault={handleSubmit}>
   <div class="input-group">
     <label for="email">Email</label>
     <input type="email" id="email" bind:value={email} placeholder="Enter your email" required />
@@ -21,7 +52,8 @@
   </div>
 
   <!-- Login Button -->
-  <button type="submit" class="cta-button">Login</button>
+  <center><button type="submit" class="nav-link">Login</button></center>
+  
 </form>
 
 <p>Don't have an account? <a href="/register" class="cta-link">Register now</a></p>
@@ -94,6 +126,30 @@
     background-color: var(--button-hover-color);
     transform: translateY(-3px);
   }
+
+
+  .nav-link {
+    padding: 15px 30px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .nav-link:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+
+
 
   p {
     text-align: center;
