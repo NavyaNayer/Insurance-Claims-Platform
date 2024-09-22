@@ -125,7 +125,7 @@
   <!-- Logo and App Name -->
   <div class="logo-container">
     <img src="/logo.png" alt="Insurance Claims Platform Logo">
-    <h1>Insurance Claims Platform</h1>
+    <h1>Health Insurance Claims Platform</h1>
   </div>
 
   <!-- Navigation Links -->
@@ -148,5 +148,5 @@
 
 
 <footer>
-  <p>&copy; 2024 Insurance Claims Platform. All rights reserved.</p>
+  <p>&copy; 2024 Health Insurance Claims Platform. All rights reserved.</p>
 </footer>
