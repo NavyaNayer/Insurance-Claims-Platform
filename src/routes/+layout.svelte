@@ -145,6 +145,8 @@
   </main>
 </div>
 
+<script src="//code.tidio.co/nkkkm7zimewyrwp5n15kowbki7b5dwdc.js" async></script>
+
 <footer>
   <p>&copy; 2024 Insurance Claims Platform. All rights reserved.</p>
 </footer>
