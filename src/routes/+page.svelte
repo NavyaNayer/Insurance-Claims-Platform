@@ -1,7 +1,7 @@
 
 <section class="hero">
   <div class="hero-content">
-      <h1>Welcome to the Insurance Claims Platform</h1>
+      <h1>Welcome to the Health Insurance Claims Platform</h1>
       <p>Your one-stop solution for managing policies and claims with ease.</p>
       <div class="cta-buttons">
           <a class="cta-button" href="/login">Login</a>
